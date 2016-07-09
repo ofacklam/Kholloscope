@@ -14,7 +14,7 @@ MYSQL* mysql = NULL;
 
 #include "utilitaire.h"
 #include "resource.h"
-#include "manager2.h"
+#include "manager.h"
 
 
 /*
@@ -123,17 +123,33 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                     PostQuitMessage (0);
                     break;
                 case ID_DB_STUDENTS:
-                    DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_MANAGE_STUDENTS), hwnd, DB_ManagerStudents_Proc);
+				{
+					Manager* mng = new Manager(mysql, "SELECT id, name, first_name, email FROM tau_users ORDER BY name, first_name");
+					mng->open(hwnd);
+					delete mng;
                     break;
+				}
                 case ID_DB_GROUPS:
-                    DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_MANAGE_GROUPS), hwnd, DB_ManagerGroups_Proc);
+                {
+					Manager* mng = new Manager(mysql, "");
+					mng->open(hwnd);
+					delete mng;
                     break;
+				}
                 case ID_DB_SUBJECTS:
-                    DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_MANAGE_SUBJECTS), hwnd, DB_ManagerSubjects_Proc);
-                    break;
+                {
+					Manager* mng = new Manager(mysql, "");
+					mng->open(hwnd);
+					delete mng;
+					break;
+				}
                 case ID_DB_KHOLLEURS:
-                    DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_MANAGE_KHOLLEURS), hwnd, DB_ManagerKholleurs_Proc);
+                {
+					Manager* mng = new Manager(mysql, "");
+					mng->open(hwnd);
+					delete mng;
                     break;
+				}
             }
             break;
 	    case WM_RBUTTONDBLCLK:
